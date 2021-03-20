@@ -30,10 +30,32 @@ class UserTest {
             user.setStrategy(new CreditCardPayment());
             user.payOrder(order);
 
-            var expected = user.getCreditLimit().subtract(order.getValue());
+            var expected = availableCredit.subtract(order.getValue());
             assertEquals(expected, user.getAvailableCredit());
             assertEquals(creditLimit, user.getCreditLimit());
-            assertEquals(balance, user.getBalance());
+            assertEquals(balance, user.getBalance().add(BigDecimal.valueOf(10)));
+        }
+    }
+
+    @Nested
+    class PayWithPix {
+        @BeforeEach
+        void setup() {
+            order = new Order(BigDecimal.valueOf(500));
+            balance = BigDecimal.valueOf(500);
+        }
+
+        @Test
+        @DisplayName("Paying with pix")
+        void payWithPix() {
+            var user = new User(balance, availableCredit, creditLimit);
+            user.setStrategy(new PixPayment());
+            user.payOrder(order);
+
+            var expected = balance.subtract(order.getValue());
+            assertEquals(availableCredit, user.getAvailableCredit());
+            assertEquals(creditLimit, user.getCreditLimit());
+            assertEquals(expected, user.getBalance());
         }
     }
 }

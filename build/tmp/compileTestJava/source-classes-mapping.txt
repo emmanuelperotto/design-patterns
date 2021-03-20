@@ -1,3 +1,4 @@
 com/emmanuelperotto/strategy/UserTest.java
  com.emmanuelperotto.strategy.UserTest
  com.emmanuelperotto.strategy.UserTest$PayWithCreditCard
+ com.emmanuelperotto.strategy.UserTest$PayWithPix
