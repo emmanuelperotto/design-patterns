@@ -33,7 +33,7 @@ class UserTest {
             var expected = availableCredit.subtract(order.getValue());
             assertEquals(expected, user.getAvailableCredit());
             assertEquals(creditLimit, user.getCreditLimit());
-            assertEquals(balance, user.getBalance().add(BigDecimal.valueOf(10)));
+            assertEquals(balance, user.getBalance());
         }
     }
 
